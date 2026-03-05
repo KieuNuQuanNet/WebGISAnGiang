@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Báo Cáo Chi Tiết - WebGIS An Giang</title>
+
+    <!-- Thư viện Xuất Excel (SheetJS) -->
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
+    <link rel="stylesheet" href="common.css" />
+    <link rel="stylesheet" href="baocao.css" />
+  </head>
+  <body>
+    <!-- Màn hình chờ khi load dữ liệu khổng lồ -->
+    <div id="loading-overlay">
+      <div class="spinner"></div>
+      <p style="margin-top: 15px; font-family: sans-serif; font-weight: bold">
+        Đang xử lý và trích xuất dữ liệu...
+      </p>
+    </div>
+
+    <div class="toolbar">
+      <button class="btn btn-excel" id="btnExportExcel">
+        📥 Tải file Excel (.xlsx)
+      </button>
+      <button class="btn btn-print" id="btnExportPDF">
+        🖨️ In Báo Cáo / Xuất PDF
+      </button>
+    </div>
+
+    <div class="a4-page">
+      <div class="header">
+        <h1 class="title">BÁO CÁO THỐNG KÊ CHI TIẾT</h1>
+        <p class="subtitle">
+          Hệ thống Thông tin Địa lý (WebGIS) Quản lý Tài nguyên tỉnh An Giang
+        </p>
+      </div>
+
+      <div class="meta-info">
+        <span>Người lập: Quản trị viên hệ thống</span>
+        <span id="txtNgayLap">Ngày lập: ...</span>
+      </div>
+
+      <p style="font-size: 15px">
+        Kết quả trích xuất lớp dữ liệu:
+        <b id="txtTenLop" style="color: #d32f2f; text-transform: uppercase"
+          >...</b
+        >
+        <br />Tổng số đối tượng ghi nhận:
+        <b id="txtTongSo" style="color: #1e88e5">0</b>
+      </p>
+
+      <div class="table-container">
+        <table id="tableReport">
+          <thead id="theadReport"></thead>
+          <tbody id="tbodyReport"></tbody>
+        </table>
+      </div>
+
+      <div class="footer">
+        <div>An Giang, ngày ...... tháng ...... năm 2026</div>
+        <div class="signature-box">XÁC NHẬN CỦA CƠ QUAN CHUYÊN MÔN</div>
+        <div class="sign-note">(Ký tên và đóng dấu)</div>
+      </div>
+    </div>
+    <script src="config.js"></script>
+    <script src="common.js"></script>
+    <script src="baocao.js"></script>
+  </body>
+</html>

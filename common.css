@@ -1,0 +1,80 @@
+/* common.css - utility nhỏ để bỏ inline style */
+.hidden {
+  display: none !important;
+}
+.text-center {
+  text-align: center;
+}
+.mt-6 {
+  margin-top: 6px;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+
+.w-70 {
+  width: 70px;
+}
+.w-90 {
+  width: 90px;
+}
+.w-130 {
+  width: 130px;
+}
+.w-170 {
+  width: 170px;
+}
+.w-180 {
+  width: 180px;
+}
+.w-200 {
+  width: 200px;
+}
+.w-220 {
+  width: 220px;
+}
+/* ===== Toggle show/hide password (global) ===== */
+.pwd-wrap {
+  position: relative;
+}
+
+/* chừa khoảng trống bên phải để nút không đè lên chữ */
+.pwd-wrap input {
+  padding-right: 54px;
+}
+
+/* nút mắt */
+.toggle-pass {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0.85;
+}
+
+.toggle-pass:hover {
+  opacity: 1;
+}
+
+.toggle-pass:focus {
+  outline: 2px solid rgba(0, 128, 0, 0.25);
+  border-radius: 10px;
+}
+
+/* ảnh mắt */
+.toggle-pass-ico {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}

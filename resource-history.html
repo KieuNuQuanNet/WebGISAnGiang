@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản trị - Lịch sử Cập nhật</title>
+    <link rel="stylesheet" href="common.css" />
+    <link rel="stylesheet" href="admin_users.css" />
+    <script src="config.js" defer></script>
+    <script src="common.js" defer></script>
+    <script src="resource-history.js" defer></script>
+  </head>
+
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-title">HỆ THỐNG WEBGIS</div>
+          <div class="brand-sub">Tài nguyên An Giang</div>
+        </div>
+
+        <nav class="side-nav">
+          <a class="side-link" href="admin_users.html">Quản lý người dùng</a>
+          <a class="side-link active" href="resource-history.html"
+            >Lịch sử Cập nhật</a
+          >
+          <a class="side-link" href="layer-manage.html"
+            >Quản lý lớp tài nguyên</a
+          >
+          <a class="side-link" href="index.html">Quay lại bản đồ</a>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <h1>LỊCH SỬ CẬP NHẬT</h1>
+          <div class="topbar-right">
+            <span id="helloUser" class="hello"></span>
+            <button id="btnLogout" class="btn btn-ghost">Đăng xuất</button>
+          </div>
+        </header>
+
+        <section class="card table-card">
+          <div class="table-head">
+            <h2>NHẬT KÝ ĐĂNG NHẬP HỆ THỐNG</h2>
+            <div class="table-actions">
+              <input
+                id="q"
+                class="input"
+                placeholder="Tìm theo email / họ tên..."
+              />
+              <button id="btnReload" class="btn">Làm mới</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width: 70px">STT</th>
+                  <th>TÀI NGUYÊN</th>
+                  <th style="width: 130px">TRẠNG THÁI</th>
+                  <th style="width: 220px">KHỞI TẠO</th>
+                  <th style="width: 220px">CẬP NHẬT</th>
+                  <th style="width: 220px">DUYỆT</th>
+                  <th style="width: 220px">CÔNG BỐ</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+          <div id="pager" class="pager"></div>
+          <div id="msg" class="msg"></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

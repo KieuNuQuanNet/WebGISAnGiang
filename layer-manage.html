@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản trị - Quản lý lớp tài nguyên</title>
+    <link rel="stylesheet" href="common.css" />
+    <link rel="stylesheet" href="admin_users.css" />
+    <script src="config.js" defer></script>
+    <script src="common.js" defer></script>
+    <script src="layer-manage.js" defer></script>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-title">HỆ THỐNG WEBGIS</div>
+          <div class="brand-sub">Tài nguyên An Giang</div>
+        </div>
+        <nav class="side-nav">
+          <a class="side-link" href="admin_users.html">Quản lý người dùng</a>
+          <a class="side-link" href="resource-history.html">Lịch sử cập nhật</a>
+          <a class="side-link active" href="layer-manage.html"
+            >Quản lý lớp tài nguyên</a
+          >
+          <a class="side-link" href="index.html">Quay lại bản đồ</a>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <h1>QUẢN LÝ LỚP TÀI NGUYÊN</h1>
+          <div class="topbar-right">
+            <span id="helloUser" class="hello"></span>
+            <button id="btnLogout" class="btn btn-ghost">Đăng xuất</button>
+          </div>
+        </header>
+
+        <section class="card table-card">
+          <div class="table-head">
+            <h2>DANH SÁCH ĐỐI TƯỢNG THEO LỚP</h2>
+            <div
+              class="table-actions"
+              style="gap: 10px; display: flex; align-items: center"
+            >
+              <select id="layerSelect" class="input"></select>
+              <select id="statusFilter" class="input">
+                <option value="all">Tất cả</option>
+                <option value="nhap">Nhập</option>
+                <option value="cho_duyet">Chờ duyệt</option>
+                <option value="da_duyet">Đã duyệt</option>
+                <option value="cong_bo">Công bố</option>
+                <option value="tu_choi">Từ chối</option>
+              </select>
+              <input id="q" class="input" placeholder="Tìm theo tên..." />
+              <button id="btnReload" class="btn">Làm mới</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width: 70px">STT</th>
+                  <th style="width: 90px">ID</th>
+                  <th>TÊN ĐỐI TƯỢNG</th>
+                  <th style="width: 170px">TRẠNG THÁI</th>
+                  <th style="width: 220px">LẦN CUỐI</th>
+                  <th style="width: 180px">HÀNH ĐỘNG</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+          <div id="msg" class="msg"></div>
+          <div id="pager" class="pager"></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
