@@ -1,5 +1,9 @@
 const api = apiJSON;
-
+const state = {
+  page: 1,
+  limit: 50, // Số bản ghi mỗi trang
+  total: 0,
+};
 function statusBadge(st) {
   const s = String(st || "").toLowerCase();
   const map = {
@@ -41,6 +45,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("btnReload")?.addEventListener("click", load);
   document.getElementById("q")?.addEventListener("input", debounce(load, 250));
 
+  // Thêm dòng này để khi chọn lớp khác thì danh sách tự tải lại
+  document.getElementById("cboLayer")?.addEventListener("change", load);
+
   await load();
 });
 
@@ -56,20 +63,29 @@ async function load() {
 
   try {
     const q = (document.getElementById("q")?.value || "").trim();
+    const layerChon =
+      document.getElementById("cboLayer")?.value || "angiang:rung";
 
-    // ✅ API mới: lịch sử cập nhật tài nguyên
-    const rows = await api(
-      `/api/admin/resource-history?limit=300&q=${encodeURIComponent(q)}`,
+    // Lấy toàn bộ dữ liệu (hoặc tăng limit lên cao)
+    const allRows = await api(
+      `/api/admin/resource-history?layer=${layerChon}&limit=1000&q=${encodeURIComponent(q)}`,
     );
 
-    rows.forEach((r, idx) => {
+    state.total = allRows.length;
+
+    // Cắt dữ liệu theo trang
+    const start = (state.page - 1) * state.limit;
+    const pageItems = allRows.slice(start, start + state.limit);
+
+    pageItems.forEach((r, idx) => {
+      const stt = start + idx + 1; // STT chạy đúng theo trang
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td class="text-center">${idx + 1}</td>
-        <td><b>${esc(r.ten_tai_nguyen || "-")}</b><div class="muted">${esc(r.ma_lop || "")}</div></td>
+            <td class="text-center">${stt}</td>
+           <td><b>${esc(r.ten_tai_nguyen || "-")}</b><div class="muted">${esc(r.ma_lop || "")}</div></td>
         <td>${statusBadge(r.trang_thai_du_lieu)}</td>
         <td>${stepCell(r.ngay_tao, r.ten_nguoi_tao || r.nguoi_tao, "Chưa có")}</td>
-        <td>${stepCell(r.ngay_cap_nhat, r.ten_nguoi_cap_nhat || r.nguoi_cap_nhat, "Chưa cập nhật")}</td>
+        <td>${stepCell(r.ngay_cap_nhat, r.ten_nguoi_cap_nhat || r.nguoi_cap_nhat || "-", "Chưa cập nhật")}</td>
         <td>${
           String(r.trang_thai_du_lieu).toLowerCase() === "tu_choi" &&
           r.ly_do_tu_choi
@@ -81,8 +97,16 @@ async function load() {
       `;
       tbody.appendChild(tr);
     });
-
-    if (!rows.length) {
+    renderPager(document.getElementById("pager"), {
+      page: state.page,
+      total: state.total,
+      limit: state.limit,
+      onChange: (p) => {
+        state.page = p;
+        load(); // Tải lại trang mới
+      },
+    });
+    if (!allRows.length) {
       tbody.innerHTML = `<tr><td colspan="7" class="muted">Chưa có dữ liệu lịch sử cập nhật</td></tr>`;
     }
   } catch (e) {

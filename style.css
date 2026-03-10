@@ -11,9 +11,17 @@ body {
   font-family: Arial, sans-serif;
   overflow: hidden;
 }
-
+:root {
+  --nav-h: 60px;
+  --color-rung: #2e7d32;
+  --color-dat: #795548;
+  --color-nuoc: #03a9f4;
+  --color-khoangsan: #2196f3;
+  --color-sinhvat-dong: #e65100;
+  --color-sinhvat-thuc: #33691e;
+}
 .navbar {
-  height: 60px;
+  height: var(--nav-h);
   background-color: #2e7d32;
   color: white;
   display: flex;
@@ -187,7 +195,7 @@ body {
 }
 
 #map {
-  height: calc(100vh - 60px);
+  height: calc(100vh - var(--nav-h));
   width: 100%;
 }
 
@@ -311,10 +319,19 @@ body {
    ========================================= */
 
 /* 👉 THẦN CHÚ: Phá vỡ bức tường giới hạn chiều cao của Leaflet để hiện Full Form */
-.leaflet-popup-content,
 .leaflet-popup-content-wrapper {
-  width: 340px;
-  max-height: none !important;
+  max-width: min(340px, calc(100vw - 24px)) !important;
+}
+
+.leaflet-popup-content {
+  width: auto !important;
+  max-width: min(340px, calc(100vw - 24px)) !important;
+  margin: 10px 12px !important; /* đỡ sát mép */
+}
+
+/* Form trong popup cũng co theo màn */
+.wfs-form-container {
+  width: min(320px, calc(100vw - 56px));
 }
 
 .wfs-form-container {
@@ -747,4 +764,378 @@ body {
 }
 .btn-report-action:hover {
   background-color: #b71c1c;
+}
+/* Giao diện trên điện thoại*/
+/* =========================
+   MOBILE LAYOUT FIX (<=768px)
+   - Giữ navbar 1 hàng
+   - Map nằm dưới navbar (không chồng)
+   - Dời toolbar xuống dưới
+   ========================= */
+.mobile-menu-btn {
+  display: none;
+  margin-left: 10px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 7000;
+}
+
+.mobile-menu-panel {
+  position: absolute;
+  top: 70px; /* ✅ nằm dưới navbar (60px) + khoảng hở */
+  right: 10px;
+
+  width: min(300px, 88vw); /* ✅ nhỏ hơn */
+  max-height: 70vh; /* ✅ không chiếm hết chiều cao */
+
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  overflow: hidden; /* giữ */
+  transform: none; /* ✅ bỏ translateY để khỏi “đẩy” lung tung */
+}
+
+.mobile-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 12px;
+  background: #f6f7f8;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-menu-user {
+  font-weight: 700;
+  color: #2e7d32;
+  font-size: 14px;
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile-menu-close {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.mobile-menu-list {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: auto;
+  max-height: calc(100vh - 90px);
+}
+
+.mobile-menu-item {
+  width: 100%;
+  text-align: left;
+  border: 1px solid #eee;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 10px; /* ✅ nhỏ hơn */
+  font-size: 14px; /* ✅ nhỏ hơn */
+  cursor: pointer;
+}
+
+.mobile-menu-item:hover {
+  background: #f2f7f2;
+  border-color: #d6ead8;
+}
+
+.mobile-menu-link {
+  display: block;
+  text-decoration: none;
+  color: #111;
+}
+
+.mobile-menu-sep {
+  height: 1px;
+  background: #eee;
+  margin: 6px 0;
+}
+
+/* ✅ MOBILE RULES */
+@media (max-width: 768px) {
+  /* show hamburger */
+  .mobile-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ❗ẩn cụm nút bên trái để khỏi rối — thay bằng menu */
+  .toolbar-container {
+    display: none !important;
+  }
+
+  /* navbar đừng bị wrap */
+  .navbar {
+    flex-wrap: nowrap;
+  }
+  .navbar-brand {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .navbar-search .search-group {
+    max-width: 170px;
+  }
+
+  /* ẩn bớt link trên navbar (đưa vào menu) */
+  #navUser,
+  #navAdminUsers {
+    display: none !important;
+  }
+}
+/* ===== Mobile navbar tidy: chỉ giữ logo + nút 🔍 + ☰ ===== */
+.mobile-search-btn {
+  display: none;
+  margin-left: 8px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* mobile search popup dùng lại .navbar-search hiện có */
+@media (max-width: 768px) {
+  /* navbar không wrap */
+  .navbar {
+    flex-wrap: nowrap;
+  }
+
+  /* Ẩn chữ rối trên mobile (đưa vào menu ☰) */
+  #navUser,
+  #navAdminUsers,
+  #navAuth {
+    display: none !important;
+  }
+
+  /* hiển thị 2 nút */
+  .mobile-search-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Ẩn ô search mặc định để navbar gọn */
+  .navbar-search {
+    display: none !important;
+  }
+  :root {
+    --nav-h: 56px;
+  }
+  /* Khi mở search -> hiện dạng popup dưới navbar */
+  .navbar-search.is-open {
+    display: flex !important;
+    position: fixed;
+    top: var(--nav-h);
+    left: 10px;
+    right: 10px;
+    z-index: 8000;
+    padding: 10px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Input co tốt */
+  .navbar-search .search-group {
+    width: 100%;
+    max-width: none;
+  }
+  #inpSearch {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  /* map nằm dưới navbar */
+  #map {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: auto !important;
+  }
+}
+
+/* === Mobile UX overrides (menu drawer) === */
+@media (max-width: 768px) {
+  /* Hide desktop auth links to avoid overlap; actions live in ☰ menu */
+  #navUser,
+  #navAuth,
+  #navAdminUsers {
+    display: none !important;
+  }
+
+  /* IMPORTANT: keep toolbar container in DOM so panels can open from the mobile menu.
+     Only hide the square buttons. */
+  .toolbar-container {
+    display: block !important;
+  }
+  .toolbar-container .tool-btn {
+    display: none !important;
+  }
+
+  /* Search: hidden by default, open when JS adds .is-open */
+  .navbar-search {
+    display: none !important;
+  }
+  .navbar-search.is-open {
+    display: block !important;
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    top: calc(56px + 8px);
+    z-index: 20050;
+  }
+}
+/* =========================
+   MOBILE FINAL OVERRIDES
+   (đặt CUỐI file để chắc chắn ăn)
+   ========================= */
+@media (max-width: 768px) {
+  /* Chặn kéo ngang */
+  html,
+  body {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Các panel nổi phải co theo màn */
+  .query-panel {
+    position: fixed !important;
+    left: 10px !important;
+    right: 10px !important;
+    top: 70px !important; /* sẽ chỉnh theo navbar bên dưới */
+    width: auto !important;
+    max-height: calc(100dvh - 90px) !important;
+  }
+
+  /* Riêng thống kê (panelThongKe) nếu đang bị inline style width/left */
+  #panelThongKe {
+    width: auto !important;
+    left: 10px !important;
+    right: 10px !important;
+  }
+
+  /* Popup Leaflet không vượt màn */
+  .leaflet-popup-content-wrapper,
+  .leaflet-popup-content {
+    max-width: calc(100vw - 24px) !important;
+  }
+}
+/* style.css */
+.stat-title {
+  color: #673ab7;
+}
+.stat-content-area {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.stat-loader-box {
+  text-align: center;
+  padding: 40px 20px;
+}
+.stat-loader-text {
+  margin-top: 15px;
+  color: #673ab7;
+  font-weight: bold;
+}
+
+/* Các item kết quả tìm kiếm/truy vấn trong script.js & search-handler.js */
+.res-item-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.res-icon-box {
+  font-size: 20px;
+  background: #e8f5e9;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.res-info-body {
+  flex: 1;
+}
+.res-title {
+  margin: 0 0 5px 0;
+  color: #2e7d32;
+  font-size: 14px;
+}
+.res-badge {
+  display: inline-block;
+  background: #c8e6c9;
+  color: #1b5e20;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+.wfs-form-header.rung {
+  color: var(--color-rung);
+  border-color: var(--color-rung);
+}
+.wfs-btn-save.rung {
+  background-color: var(--color-rung);
+}
+.wfs-btn-save.nuoc {
+  background-color: var(--color-nuoc);
+}
+.stat-summary-box {
+  margin-top: 15px;
+  padding: 12px;
+  background: #f3e5f5;
+  border-left: 5px solid #673ab7;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+.search-variant .res-icon-box {
+  background: #e3f2fd !important;
+}
+.search-variant .res-title {
+  color: #0d47a1 !important;
+}
+.search-variant .res-badge {
+  background: #bbdefb !important;
+  color: #0d47a1 !important;
 }

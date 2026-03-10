@@ -56,7 +56,7 @@ if (!verifyToken && !resetToken && localStorage.getItem("webgis_token")) {
     const data = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(data.message || "Xác nhận email thất bại");
 
-    show(successMsg, "✅ " + (data.message || "Xác nhận email thành công!"));
+    showToast(data.message || "Xác nhận email thành công!", "success");
     gotoLogin();
   } catch (e) {
     show(errorMsg, "❌ " + (e.message || e));
@@ -115,12 +115,7 @@ frmRegister?.addEventListener("submit", async (e) => {
       throw new Error(msg || "Lỗi đăng ký");
     }
 
-    show(
-      successMsg,
-      "✅ " +
-        (data.message ||
-          "Đăng ký thành công. Vui lòng kiểm tra email để xác nhận, sau đó chờ Admin duyệt."),
-    );
+    showToast(data.message || "Đăng ký thành công!", "success");
     frmRegister.reset();
 
     setTimeout(() => {
@@ -159,9 +154,13 @@ frmLogin?.addEventListener("submit", async (e) => {
     });
 
     const data = await r.json().catch(() => ({}));
-    if (!r.ok) throw new Error(data.message || "Lỗi đăng nhập");
 
-    // ✅ Lưu token + roles + permissions
+    // 🛡️ THÊM ĐOẠN KIỂM TRA LỖI NÀY:
+    if (!r.ok) {
+      throw new Error(data.message || "Sai tài khoản hoặc mật khẩu!");
+    }
+
+    // Chỉ khi đăng nhập thành công mới chạy tiếp các dòng dưới đây
     localStorage.setItem("webgis_token", data.token);
     localStorage.setItem("webgis_roles", JSON.stringify(data.roles || []));
     localStorage.setItem(
@@ -175,12 +174,13 @@ frmLogin?.addEventListener("submit", async (e) => {
     localStorage.setItem("webgis_user", data.ho_ten || "");
 
     // compat role cũ
-    const roles = (data.roles || []).map((x) => (x || "").toLowerCase());
-    const mainRole = roles.includes("admin")
-      ? "admin"
-      : roles.includes("can_bo")
-        ? "can_bo"
-        : "guest";
+    const roles = (data.roles || []).map((x) => (x || "").trim().toLowerCase());
+    const mainRole =
+      roles.includes("admin") || roles.includes("quan_tri")
+        ? "admin"
+        : roles.includes("can_bo")
+          ? "can_bo"
+          : "guest";
     localStorage.setItem("webgis_role", mainRole);
 
     window.location.href = "index.html";

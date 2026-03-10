@@ -1,4 +1,4 @@
-const api = apiJSON; // dùng từ common.js
+const api = apiJSON;
 
 function badgeStatus(status) {
   if (status === "hoat_dong")
@@ -38,10 +38,9 @@ let rolesMaster = [];
 
 const state = {
   page: 1,
-  limit: 10, // mỗi trang 10 user (đổi 20/50 tùy)
+  limit: 10,
   total: 0,
 };
-
 
 async function loadData() {
   const msg = document.getElementById("msg");
@@ -51,8 +50,12 @@ async function loadData() {
   }
 
   try {
-    rolesMaster = await api("/api/admin/roles");
-    const usersAll = await api("/api/admin/users"); // vẫn lấy full
+    const allRoles = await api("/api/admin/roles");
+
+    rolesMaster = allRoles.filter(
+      (r) => r.ma !== "nguoi_dung" && r.ma !== "khach" && r.ma !== "user",
+    );
+    const usersAll = await api("/api/admin/users");
 
     state.total = usersAll.length;
 
@@ -64,7 +67,6 @@ async function loadData() {
         (u) => u.trang_thai === "cho_duyet",
       ).length;
 
-    // cắt dữ liệu theo trang
     const start = (state.page - 1) * state.limit;
     const pageItems = usersAll.slice(start, start + state.limit);
 
@@ -81,7 +83,7 @@ async function loadData() {
   } catch (e) {
     if (msg) {
       msg.className = "msg show";
-      msg.textContent = "❌ " + e.message;
+      msg.textContent = " " + e.message;
     }
   }
 }
@@ -92,7 +94,7 @@ function renderTable(users) {
   tbody.innerHTML = "";
 
   users.forEach((u, idx) => {
-    const roleValue = u.roles && u.roles.length ? u.roles[0] : "guest";
+    const roleValue = u.roles && u.roles.length ? u.roles[0] : "can_bo";
 
     const roleOptions = rolesMaster
       .map(
@@ -144,9 +146,9 @@ function renderTable(users) {
           body: { trang_thai: status },
         });
         await loadData();
-        alert("✅ Đã lưu thay đổi!");
+        showToast("Đã lưu thay đổi!");
       } catch (e) {
-        alert("❌ " + e.message);
+        showToast(" " + e.message);
       } finally {
         btn.disabled = false;
       }
@@ -160,11 +162,12 @@ function renderTable(users) {
 
       btn.disabled = true;
       try {
+        // Đổi thành đường dẫn đúng:
         await api(`/api/admin/users/${id}`, { method: "DELETE" });
         await loadData();
-        alert("✅ Đã xóa!");
+        showToast("✅ Đã xóa tài khoản thành công!");
       } catch (e) {
-        alert("❌ " + e.message);
+        showToast("❌ Lỗi: " + e.message, "error");
       } finally {
         btn.disabled = false;
       }

@@ -1,4 +1,3 @@
-/* common.css - utility nhỏ để bỏ inline style */
 .hidden {
   display: none !important;
 }
@@ -33,17 +32,15 @@
 .w-220 {
   width: 220px;
 }
-/* ===== Toggle show/hide password (global) ===== */
+
 .pwd-wrap {
   position: relative;
 }
 
-/* chừa khoảng trống bên phải để nút không đè lên chữ */
 .pwd-wrap input {
   padding-right: 54px;
 }
 
-/* nút mắt */
 .toggle-pass {
   position: absolute;
   right: 12px;
@@ -69,7 +66,6 @@
   border-radius: 10px;
 }
 
-/* ảnh mắt */
 .toggle-pass-ico {
   width: 26px;
   height: 26px;
@@ -78,3 +74,266 @@
   user-select: none;
   pointer-events: none;
 }
+
+#toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.webgis-toast {
+  pointer-events: auto;
+  min-width: 250px;
+  background-color: #333;
+  color: #fff;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  animation: toastSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition:
+    opacity 0.5s,
+    transform 0.5s;
+}
+
+.webgis-toast.success {
+  background-color: #4caf50;
+  border-left: 5px solid #2e7d32;
+}
+.webgis-toast.error {
+  background-color: #f44336;
+  border-left: 5px solid #c62828;
+}
+.webgis-toast.info {
+  background-color: #2196f3;
+  border-left: 5px solid #1565c0;
+}
+.webgis-toast.warning {
+  background-color: #ff9800;
+  border-left: 5px solid #ef6c00;
+}
+
+@keyframes toastSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.toast-fade-out {
+  opacity: 0;
+  transform: translateX(50%);
+}
+
+.table-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 15px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-trash {
+  background-color: #607d8b;
+  color: white;
+}
+
+.btn-trash:hover {
+  background-color: #455a64;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-trash.active {
+  background-color: #f44336;
+}
+
+.w-70 {
+  width: 70px;
+}
+.w-90 {
+  width: 90px;
+}
+.w-130 {
+  width: 130px;
+}
+.w-180 {
+  width: 180px;
+}
+.w-200 {
+  width: 200px;
+}
+.w-220 {
+  width: 220px;
+}
+
+.text-center {
+  text-align: center;
+}
+.text-purple {
+  color: #673ab7;
+}
+.text-bold {
+  font-weight: bold !important;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.scroll-y-80 {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+/* Trạng thái hàng đang chờ duyệt (màu vàng nhạt) */
+.row-pending {
+  background-color: #fffde7 !important;
+  border-left: 4px solid #fbc02d;
+}
+
+/* Chữ thông báo trạng thái nhỏ dưới tên tài nguyên */
+.status-label-sub {
+  font-size: 11px;
+  font-weight: bold;
+  margin-top: 4px;
+}
+.status-red {
+  color: #d32f2f;
+}
+.status-orange {
+  color: #f9a825;
+}
+
+/* Khung hiển thị lý do xóa (màu cam nhạt) */
+.reason-alert-box {
+  background: #fff3e0;
+  padding: 8px;
+  border-radius: 4px;
+  border-left: 4px solid #ff9800;
+  color: #663c00;
+  font-size: 13px;
+}
+
+.wfs-form-title {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid;
+}
+.layer-control-list {
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 5px;
+}
+.list-separator {
+  margin: 8px 0;
+  border-top: 1px solid #ddd;
+}
+
+.btn-success {
+  background-color: #4caf50 !important;
+}
+.btn-danger {
+  background-color: #f44336 !important;
+}
+/* 4. Định dạng màu sắc theo loại tài nguyên (Dùng biến đã có trong style.css) */
+.text-rung {
+  color: var(--color-rung);
+  border-color: var(--color-rung);
+}
+.bg-rung {
+  background-color: var(--color-rung) !important;
+}
+
+.text-dat {
+  color: var(--color-dat);
+  border-color: var(--color-dat);
+}
+.bg-dat {
+  background-color: var(--color-dat) !important;
+}
+
+.text-nuoc {
+  color: var(--color-nuoc);
+  border-color: var(--color-nuoc);
+}
+.bg-nuoc {
+  background-color: var(--color-nuoc) !important;
+}
+.text-khoangsan {
+  color: #2196f3 !important;
+  border-color: #2196f3 !important;
+}
+.bg-khoangsan {
+  background-color: #2196f3 !important;
+}
+
+.text-sinhvat {
+  color: var(--color-sinhvat-dong);
+  border-color: var(--color-sinhvat-dong);
+}
+.bg-sinhvat {
+  background-color: var(--color-sinhvat-dong) !important;
+}
+.text-red {
+  color: #d32f2f !important;
+}
+.text-blue {
+  color: #1e88e5;
+}
+.text-large {
+  font-size: 16px;
+}
+.bg-orange {
+  background-color: #ef6c00 !important;
+}
+
+/* Dành cho tiêu đề đo đạc trong wfs-handler.js */
+.measure-title {
+  margin-top: 0;
+  color: #2e7d32;
+  border-bottom: 2px solid #4caf50;
+  padding-bottom: 5px;
+}
+.text-15 {
+  font-size: 15px;
+}
+.report-header-text {
+  margin-top: 15px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+/* Dành cho nút Thùng rác trong layer-manage.js */
+     .btn-trash-active { background-color: #f44336 !important; }
+    
+     /* Dành cho khối tóm tắt thống kê trong index.html */
+     .stat-summary-box {
+         margin-top: 15px;
+         padding: 12px;
+         background: #f3e5f5;
+         border-left: 5px solid #673ab7;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #333;
+        line-height: 1.5;
+    }

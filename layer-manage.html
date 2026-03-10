@@ -39,21 +39,19 @@
         <section class="card table-card">
           <div class="table-head">
             <h2>DANH SÁCH ĐỐI TƯỢNG THEO LỚP</h2>
-            <div
-              class="table-actions"
-              style="gap: 10px; display: flex; align-items: center"
-            >
+            <div class="flex-center">
               <select id="layerSelect" class="input"></select>
               <select id="statusFilter" class="input">
-                <option value="all">Tất cả</option>
+                <option value="tat_ca">-- Tất cả trạng thái --</option>
                 <option value="nhap">Nhập</option>
                 <option value="cho_duyet">Chờ duyệt</option>
-                <option value="da_duyet">Đã duyệt</option>
                 <option value="cong_bo">Công bố</option>
-                <option value="tu_choi">Từ chối</option>
+                <option value="da_xoa">🗑️ ĐÃ XÓA (Thùng rác)</option>
+                <!-- THÊM DÒNG NÀY -->
               </select>
               <input id="q" class="input" placeholder="Tìm theo tên..." />
               <button id="btnReload" class="btn">Làm mới</button>
+              <button id="btnTrash" class="btn btn-trash">🗑️ Thùng rác</button>
             </div>
           </div>
 
@@ -61,12 +59,12 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th style="width: 70px">STT</th>
-                  <th style="width: 90px">ID</th>
+                  <th class="w-70">STT</th>
+                  <th class="w-90">ID</th>
                   <th>TÊN ĐỐI TƯỢNG</th>
-                  <th style="width: 170px">TRẠNG THÁI</th>
-                  <th style="width: 220px">LẦN CUỐI</th>
-                  <th style="width: 180px">HÀNH ĐỘNG</th>
+                  <th class="w-170">TRẠNG THÁI</th>
+                  <th class="w-220">LẦN CUỐI</th>
+                  <th class="w-180">HÀNH ĐỘNG</th>
                 </tr>
               </thead>
               <tbody id="tbody"></tbody>

@@ -5,27 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Báo Cáo Chi Tiết - WebGIS An Giang</title>
 
-    <!-- Thư viện Xuất Excel (SheetJS) -->
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
     <link rel="stylesheet" href="common.css" />
     <link rel="stylesheet" href="baocao.css" />
   </head>
   <body>
-    <!-- Màn hình chờ khi load dữ liệu khổng lồ -->
     <div id="loading-overlay">
       <div class="spinner"></div>
-      <p style="margin-top: 15px; font-family: sans-serif; font-weight: bold">
+      <p class="report-header-text">
         Đang xử lý và trích xuất dữ liệu...
       </p>
     </div>
 
     <div class="toolbar">
       <button class="btn btn-excel" id="btnExportExcel">
-        📥 Tải file Excel (.xlsx)
+        Tải file Excel (.xlsx)
       </button>
       <button class="btn btn-print" id="btnExportPDF">
-        🖨️ In Báo Cáo / Xuất PDF
+        In Báo Cáo / Xuất PDF
       </button>
     </div>
 
@@ -42,13 +40,10 @@
         <span id="txtNgayLap">Ngày lập: ...</span>
       </div>
 
-      <p style="font-size: 15px">
+      <p class="text-15">
         Kết quả trích xuất lớp dữ liệu:
-        <b id="txtTenLop" style="color: #d32f2f; text-transform: uppercase"
-          >...</b
-        >
-        <br />Tổng số đối tượng ghi nhận:
-        <b id="txtTongSo" style="color: #1e88e5">0</b>
+        <b id="txtTenLop" class="report-layer-name">
+        <b id="txtTongSo" class="report-total-num">0</b>
       </p>
 
       <div class="table-container">

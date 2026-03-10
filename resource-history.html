@@ -42,13 +42,18 @@
 
         <section class="card table-card">
           <div class="table-head">
-            <h2>NHẬT KÝ ĐĂNG NHẬP HỆ THỐNG</h2>
+            <h2>LỊCH SỬ CẬP NHẬT TÀI NGUYÊN</h2>
             <div class="table-actions">
-              <input
-                id="q"
-                class="input"
-                placeholder="Tìm theo email / họ tên..."
-              />
+              <!-- Thêm ô chọn lớp dữ liệu -->
+              <select id="cboLayer" class="input w-200">
+                <option value="angiang:rung">Tài nguyên Rừng</option>
+                <option value="angiang:dat">Tài nguyên Đất</option>
+                <option value="angiang:waterways">Tài nguyên Nước</option>
+                <option value="angiang:khoangsan_diem_mo">Khoáng sản</option>
+                <option value="angiang:dongvat">Động vật</option>
+                <option value="angiang:thucvat">Thực vật</option>
+              </select>
+              <input id="q" class="input" placeholder="Tìm tên tài nguyên..." />
               <button id="btnReload" class="btn">Làm mới</button>
             </div>
           </div>
@@ -57,13 +62,13 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th style="width: 70px">STT</th>
+                  <th class="w-70">STT</th>
                   <th>TÀI NGUYÊN</th>
-                  <th style="width: 130px">TRẠNG THÁI</th>
-                  <th style="width: 220px">KHỞI TẠO</th>
-                  <th style="width: 220px">CẬP NHẬT</th>
-                  <th style="width: 220px">DUYỆT</th>
-                  <th style="width: 220px">CÔNG BỐ</th>
+                  <th class="w-130">TRẠNG THÁI</th>
+                  <th class="w-220">KHỞI TẠO</th>
+                  <th class="w-220">CẬP NHẬT</th>
+                  <th class="w-220">DUYỆT</th>
+                  <th class="w-220">CÔNG BỐ</th>
                 </tr>
               </thead>
               <tbody id="tbody"></tbody>
